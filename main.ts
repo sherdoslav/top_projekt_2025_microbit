@@ -21,6 +21,9 @@ input.onButtonPressed(Button.A, function () {
             led.plot(point_x, point_y)
         }
     }
+    if (can_start == 3) {
+    	
+    }
 })
 function light_the_wall () {
     if (wall_hole != 0) {
@@ -79,8 +82,8 @@ can_start = 1
 let wall_status = 1
 wall_hole = randint(0, 4)
 basic.forever(function () {
-    basic.pause(500)
-    if (can_start == 2) {
+    while (can_start == 2) {
+        basic.pause(200)
         if (wall_status == 1) {
             light_the_wall()
             wall_status = 2
@@ -101,6 +104,21 @@ basic.forever(function () {
             }
         } else {
         	
+        }
+        if (wall_x == 1 && wall_hole != point_y) {
+            basic.showLeds(`
+                # . . . #
+                . # . # .
+                . . # . .
+                . # . # .
+                # . . . #
+                `)
+            can_start = 1
+            wall_hole = randint(0, 4)
+            wall_status = 1
+            point_x = 1
+            point_y = 2
+            wall_x = 4
         }
     }
 })
